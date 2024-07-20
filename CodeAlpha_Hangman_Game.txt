@@ -1,0 +1,92 @@
+#import necessary modules
+import time    #time module is used for adding delays to the the program execution
+import random   #random module is used to select random elements from a list
+
+#prompt user for their name
+player_name = input("What is your name? ")
+
+print("Hello, " + player_name + ", it's time to play Hangman!")
+
+#wait for 1 second
+time.sleep(1)
+
+print("Start guessing...")
+time.sleep(0.5)
+
+# List of possible words to guess
+words = ["secret", "python", "hangman", "challenge", "random", "programming", "computer", "science", "algorithm", "function", "variable", "loop"]
+
+# Choose a random word from the list
+chosen_word = random.choice(words)
+
+#initialize an empty string for guessed letters
+guessed_letters = ''
+
+#initialize a list to store all guessed letters
+all_guessed_letters = []
+
+#set the number of allowed incorrect guesses
+attempts_remaining = 5
+
+# Create a loop for the guessing process
+
+#check if there are remaining attempts
+while attempts_remaining > 0:         
+
+    # counter for missed guesses
+    missed_guesses = 0             
+
+    # iterate over each character in the chosen word    
+    for char in chosen_word:      
+
+        # check if the character has been guessed
+        if char in guessed_letters:    
+    
+            # print the character
+            print(char, end=""),    
+
+        else:
+    
+            # if not, print a dash
+            print("_", end=""),     
+       
+            # increment the missed guesses counter
+            missed_guesses += 1    
+
+    # if no characters were missed
+
+    # print a winning message
+    if missed_guesses == 0:        
+        print("\nCongratulations, you won!")
+        # exit the loop
+        break            
+
+    # prompt the user to guess a letter
+    guess = input("\nGuess a letter:") 
+
+    # add the guessed letter to the string of guessed letters
+    guessed_letters += guess                    
+
+    # add the guessed letter to the list of all guessed letters
+    all_guessed_letters.append(guess)
+
+    # print all guessed letters
+    print("Guessed letters so far: ", ' '.join(all_guessed_letters))
+
+    # if the guessed letter is not in the chosen word
+    if guess not in chosen_word:  
+ 
+        # decrement the number of attempts remaining
+        attempts_remaining -= 1        
+ 
+        # print a message for an incorrect guess
+        print("Oops!! Wrong")  
+ 
+        # print the number of remaining attempts
+        print("You have", attempts_remaining, 'more guesses' )
+ 
+        # if there are no attempts remaining
+        if attempts_remaining == 0:           
+    
+            # print a losing message
+            print("Sorry :)", player_name, " you lose"  )
